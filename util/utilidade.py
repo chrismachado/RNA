@@ -58,7 +58,9 @@ class Utilidade(object):
         plt.xlabel(xlabel)
         plt.ylabel(ylabel)
 
-        plt.savefig("../figuras/%s.png" % (title), format='png')
+        if self.log == 's':
+            plt.savefig("../figuras/%s.png" % (title), format='png')
+
         plt.show()
 
     def plot_learning_bend(self, erros, title='Title', xlabel='xlabel', ylabel='ylabel'):
