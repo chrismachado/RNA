@@ -2,9 +2,10 @@ import numpy as np
 
 class Perceptron(object):
 
-    def __init__(self, eta=0.01, epochs=50):
+    def __init__(self, eta=0.01, epochs=50, base_treino=0.7):
         self.eta = eta
         self.epochs = epochs
+        self.base_treino = base_treino
 
     def train(self, X, y):
         self.w_ = np.zeros(1 + X.shape[1])
@@ -68,7 +69,7 @@ class Perceptron(object):
 
     # dar somente 1 shuffle_ antes de usar estas funcoes
     def get_train_sample(self, K):
-        return K[:int(len(K) * 0.7)]
+        return K[:int(len(K) * self.base_treino)]
 
     def get_test_sample(self, K):
-        return K[int(len(K) * 0.7):]
+        return K[int(len(K) * self.base_treino):]
