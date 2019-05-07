@@ -49,8 +49,8 @@ class Utilidade(object):
 
         return X_new, y_new, accuracy, weights, dmm, erros, imax_, imin_
 
-    def plot_decision(self, X, y, clf, title='Title', xlabel='xlabel', ylabel='ylabel'):
-        plot_decision_regions(X, y, clf=clf)
+    def plot_decision(self, X, y, clf, title='Title', xlabel='xlabel', ylabel='ylabel', X_highlight=None):
+        plot_decision_regions(X, y, clf=clf, X_highlight=X_highlight)
 
         plt.axis([0, 1, 0, 1])
 

@@ -2,15 +2,12 @@
 # epocas: Quantidade de épocas que serão executadas no treinamento do perceptron
 # eta: Taxa de aprendizagem do perceptron (Recomendado: 0.1 <= eta <= 0.2)
 # base_terino: Percentual da base de dados para treinamento.
-# iris_classe: Classe da iris no qual o perceptron irá classificar em detrimento das outras.
-#              As classes existentes são: 'Iris-setosa',
-#                                         'Iris-versicolor',
-#                                         'Iris-virginica'.
-# atributos: Atributos que serão utilizados para treinar o perceptron
-#            Quais atributos podem ser escolhidos: 0: 'sepal length (cm)',
-#                                                  1: 'sepal width (cm)',
-#                                                  2: 'petal length (cm)',
-#                                                  3: 'petal width (cm)'.
+# classe: Classe da do problema no qual o perceptron irá classificar em detrimento das outras.
+#              As classes existentes são: 'and',
+#                                         'or',
+#                                         'xor'.
+# num_por_classe: Numero de elementos por classe.
+# ruido: Valor que será atribuido como ruido no momento em que os padrões estão sendo gerados.
 # verb: Exibe todas as informações do melhor e pior resultado.
 #            As opções disponíveis sao: 's': Exibir todos os dados
 #                                        'n': Não exibir todos os dados
@@ -18,15 +15,12 @@
 #            As opções disponíveis sao: 's': Armazena as informações
 #                                        'n': Não armazena as informações
 
-iris_classe: 'Iris-setosa'
-realizacoes: 5
+classe: 'or'
+realizacoes: 10
 epocas: 10
 eta: 0.1
 base_treino: 0.8
-atributos:
-  - 0
-#  - 1
-  - 2
-#  - 3
+num_por_classe: 100
+ruido: 0.15
 verb: 's'
 log: 'n'
