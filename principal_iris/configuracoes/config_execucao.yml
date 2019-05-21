@@ -19,14 +19,15 @@
 #                                        'n': Não armazena as informações
 
 iris_classe: 'Iris-setosa'
-realizacoes: 5
+realizacoes: 1
 epocas: 10
 eta: 0.1
-base_treino: 0.8
+base_treino: 0.7
 atributos:
   - 0
-#  - 1
-  - 2
+  - 1
+#  - 2
 #  - 3
 verb: 's'
 log: 'n'
+curva_aprendizado: 's'

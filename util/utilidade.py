@@ -30,7 +30,7 @@ class Utilidade(object):
             X_new.append([X_train, X_test])
             y_new.append([y_train, y_test])
 
-            clf.train(X_train, y_train)
+            clf = clf.fit(X_train, y_train)
             erros.append(clf.errors_)
             weights.append(clf.w_)
 
@@ -80,7 +80,6 @@ class Utilidade(object):
         for i in range(X.shape[1]):
             max_ = max(X[:, i])
             min_ = min(X[:, i])
-
             for j in range(X.shape[0]):
                 X[j, i] = (X[j, i] - min_) / (max_ - min_)
 
@@ -112,8 +111,8 @@ class Utilidade(object):
             print("+==  Pesos desta iteração: ", weights[imin_])
             print("+==  Matriz de confusao :  \n\t\t\t%s\n\t\t\t%s" % (dmm[imin_][0], dmm[imin_][1]))
 
-        print("\n+========    MELHOR RESULTADO OBTIDO   =============+")
-        print("+==  Iteração com melhor resultado: ", imax_ + 1)
-        print("+==  Taxa de acerto: ", accuracy[imax_])
-        print("+==  Pesos desta iteração: ", weights[imax_])
-        print("+==  Matriz de confusao :  \n\t\t\t%s\n\t\t\t%s" % (dmm[imax_][0], dmm[imax_][1]))
+            print("\n+========    MELHOR RESULTADO OBTIDO   =============+")
+            print("+==  Iteração com melhor resultado: ", imax_ + 1)
+            print("+==  Taxa de acerto: ", accuracy[imax_])
+            print("+==  Pesos desta iteração: ", weights[imax_])
+            print("+==  Matriz de confusao :  \n\t\t\t%s\n\t\t\t%s" % (dmm[imax_][0], dmm[imax_][1]))

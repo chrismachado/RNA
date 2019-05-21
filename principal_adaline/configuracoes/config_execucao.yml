@@ -1,0 +1,23 @@
+# classe: Classe define qual será a função de geração dos pontos.
+#              2: f(x) = a * x + b
+#               3: f(x1, x2) = a * x1 + b * x2 + c
+#
+#
+# einicio: Elemento inicial
+# efim: Elemento final
+# eqnt: Quantidade de elementos
+#
+# abc: Valores para a, b e c da função
+#
+# ruido: Define a oscilação do resultado da função determinada. Em um determinado intervalo
+#        -ruido <= x <= ruido
+
+eta: 0.01
+epocas: 200
+realizacoes: 20
+ruido: 3
+abc:
+  - 2
+  - 3
+  - 6
+

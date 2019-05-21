@@ -15,12 +15,12 @@
 #            As opções disponíveis sao: 's': Armazena as informações
 #                                        'n': Não armazena as informações
 
-classe: 'or'
+classe: 'and'
 realizacoes: 10
 epocas: 10
 eta: 0.1
 base_treino: 0.8
-num_por_classe: 100
+num_por_classe: 10
 ruido: 0.15
 verb: 's'
 log: 'n'

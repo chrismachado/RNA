@@ -8,7 +8,7 @@ class Perceptron(object):
         self.epochs = epochs
         self.base_treino = base_treino
 
-    def train(self, X, y):
+    def fit(self, X, y):
         self.w_ = np.zeros(1 + X.shape[1])
         self.w_[0] = -1
         self.errors_ = []
