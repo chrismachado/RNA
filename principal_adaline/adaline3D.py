@@ -49,7 +49,6 @@ def main():
     plt3d = fig.gca(projection='3d')
     plt3d.cla()
 
-    # plt3d.scatter(X_train[:, 0], X_train[:, 1], y_train, color='red', alpha=1.0, facecolors='none')
     plt3d.scatter(X[:, 0], X[:, 1], y, color='red', alpha=1.0)
 
     xx = np.reshape(xx, (N, N))
