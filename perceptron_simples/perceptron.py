@@ -35,7 +35,7 @@ class Perceptron(object):
         y_test = []
         cm = np.zeros((2,2))
         for xi, target in zip(X, y):
-            dy = self.predict(xi) - target
+            dy = target - self.predict(xi)
             y_test.append(dy)
 
            #Matriz de confusao
@@ -60,6 +60,8 @@ class Perceptron(object):
 
     def predict(self, X):
         return np.where(self.net_input(X) >= 0.0, 1, 0)
+
+
 
     def shuffle_(self, X, y):
         state = np.random.get_state()

@@ -9,21 +9,20 @@ class Adaline(object):
         self.base_treino = base_treino
 
     def fit(self, X, y):
-
-        self.w_ = np.ones(shape=(1 + X.shape[1], 1))
-        # self.w_ = np.zeros(shape=(1 + X.shape[1], 1))
+        self.w_ = np.ones(shape=(1 + X.shape[1]))
         self.custo = []
 
         for _ in range(self.epochs):
-
             self.shuffle_(X, y)
-            saida = self.net_input(X)
-            erros = y - saida
+            custo_ = 0
 
-            self.w_[1:] += self.eta * X.T.dot(erros)
-            self.w_[0] += self.eta * sum(erros)
+            for xi, target in zip(X, y):
+                saida = self.net_input(xi)
+                erros = target - saida
+                self.w_[1:] += self.eta * xi * erros
+                self.w_[0] += self.eta * erros
 
-            custo_ = sum(erros ** 2) / 2.0
+                custo_ += sum(erros ** 2) / X.shape[0]
 
             self.custo.append(custo_)
         return self
@@ -55,7 +54,6 @@ class Adaline(object):
         np.random.shuffle(X)
         np.random.set_state(state)
         np.random.shuffle(y)
-
 
     # dar somente 1 shuffle_ antes de usar estas funcoes
     def get_train_sample(self, K):

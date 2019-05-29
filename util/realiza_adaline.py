@@ -37,12 +37,22 @@ def executar(X, y, clf, num=20):
     clf.custo = custo[imin]
     clf.w_ = weights[imin]
 
+    with open("../log/adaline%sD" % (X.shape[1] + 1), 'w') as f:
+        f.write("\n#######################################################")
+        f.write("\n### Desvio padrão do MSE: %s" % np.std(mse))
+        f.write("\n### Desvio padrão do RMSE: %s" % np.std(rmse))
+
+        f.write("\n\n#######################################################")
+        f.write("\n## Iteração com menor erro quadrático médio: %s" % (imin+1))
+        f.write("\n## Erro quadrático médio: %s" % mse[imin])
+        f.write("\n## Raiz quadrada erro quadrático médio: %s" % rmse[imin])
+
     print("\n#######################################################")
     print("### Desvio padrão do MSE: ", np.std(mse))
     print("### Desvio padrão do RMSE: ", np.std(rmse))
 
     print("\n#######################################################")
-    print("## Iteração com menor erro quadrático médio: ", imin)
+    print("## Iteração com menor erro quadrático médio: ", imin+1)
     print("## Erro quadrático médio: ", mse[imin])
     print("## Raiz quadrada erro quadrático médio: ", rmse[imin])
 

@@ -19,6 +19,7 @@ class Utilidade(object):
 
         X.transpose()
         self.normalize_(X)
+        # X = np.c_[-np.ones(shape=(X.shape[0], 1)), X]
 
         for _ in range(num):
             if self.verb == 's':
@@ -116,3 +117,4 @@ class Utilidade(object):
             print("+==  Taxa de acerto: ", accuracy[imax_])
             print("+==  Pesos desta iteração: ", weights[imax_])
             print("+==  Matriz de confusao :  \n\t\t\t%s\n\t\t\t%s" % (dmm[imax_][0], dmm[imax_][1]))
+

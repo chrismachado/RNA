@@ -13,11 +13,12 @@
 #        -ruido <= x <= ruido
 
 eta: 0.01
-epocas: 200
+epocas2D: 200
+epocas3D: 200
 realizacoes: 20
-ruido: 3
+ruido: 0.2
 abc:
   - 2
   - 3
-  - 6
+  - 1
 

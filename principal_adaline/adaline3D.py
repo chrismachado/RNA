@@ -18,7 +18,7 @@ def main():
     a, b, c = config_exec['abc']
     realizacoes = config_exec['realizacoes']
     eta = config_exec['eta']
-    epocas = config_exec['epocas']
+    epocas = config_exec['epocas3D']
     ruido = config_exec['ruido']
 
     ada = Adaline(eta=eta, epochs=epocas, base_treino=0.8)
@@ -27,7 +27,7 @@ def main():
     y = np.reshape(y, (y.shape[0], 1))
 
     Utilidade().normalize_(X[:, 0:2])
-    Utilidade().normalize_(y)
+    # Utilidade().normalize_(y)
 
     xx = copy.deepcopy(X[:, 0])
     yy = copy.deepcopy(X[:, 1])
@@ -41,6 +41,7 @@ def main():
     plt.title('Curva de aprendizado')
     plt.xlabel('Época')
     plt.ylabel('Custo')
+    plt.savefig("../figuras/%s.png" % 'ca3d', format='png')
     plt.show()
 
     zz = w[1] * xx + w[2] * yy + w[0]
@@ -50,6 +51,7 @@ def main():
     plt3d.cla()
 
     plt3d.scatter(X[:, 0], X[:, 1], y, color='red', alpha=1.0)
+    plt.savefig("../figuras/%s.png" % 'datara3d', format='png')
 
     xx = np.reshape(xx, (N, N))
     yy = np.reshape(yy, (N, N))
@@ -60,6 +62,7 @@ def main():
     plt3d.set_xlabel('x1')
     plt3d.set_ylabel('x2')
     plt3d.set_zlabel('y')
+    plt.savefig("../figuras/%s.png" % 'ra3d', format='png')
 
     plt.show()
 

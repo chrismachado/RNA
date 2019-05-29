@@ -17,10 +17,10 @@
 
 classe: 'and'
 realizacoes: 10
-epocas: 10
-eta: 0.1
+epocas: 100
+eta: 0.05
 base_treino: 0.8
 num_por_classe: 10
-ruido: 0.15
+ruido: 0.3
 verb: 's'
 log: 'n'

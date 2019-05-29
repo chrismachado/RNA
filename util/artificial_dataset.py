@@ -45,7 +45,7 @@ class Artificial(object):
         return X, y, N
 
     def function3d(self, a, b, c, ruido):
-        x = np.arange(0, 10, 1, dtype=float)
+        x = np.arange(0, 1, 0.1, dtype=float)
         N = x.size
 
         X = np.ones(shape=(N * N, 2))
@@ -59,3 +59,25 @@ class Artificial(object):
         y = a * X[:, 0] + b * X[:, 1] + c + ruido
 
         return X, y, N
+
+    def artificial_sigmoide(self, npc, ruido):
+        X = []
+        y = []
+        c = 0
+        for i, j in zip([0, 1, 2], [2, 1, 2]):
+            for _ in range(npc):
+                X.append([random.uniform(i + ((-1) ** (_ + 1)) * ruido, i + ((-1) ** _) * ruido),
+                          random.uniform(j + ((-1) ** (_ + 1)) * ruido, j + ((-1) ** _) * ruido)])
+
+                if c == 0:
+                    y.append(np.array([1, 0, 0]))
+                elif c == 1:
+                    y.append(np.array([0, 1, 0]))
+                elif c == 2:
+                    y.append(np.array([0, 0, 1]))
+            c += 1
+
+        X = np.array(X)
+        y = np.array(y)
+
+        return X, y
