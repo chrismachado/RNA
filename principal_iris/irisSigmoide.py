@@ -3,7 +3,7 @@ import numpy as np
 import pandas as pd
 import yaml
 
-from perceptron_simples.perceptron import Perceptron
+from perceptron_sigmoide.perceptron_sigmoide import PerceptronSIG
 from util.utilidade import Utilidade
 
 
@@ -21,8 +21,9 @@ def main():
     verb = config_exec['verb']
     log = config_exec['log']
     curva = config_exec['curva_aprendizado']
+    type_y = config_exec['type_y']
 
-    ppn = Perceptron(epochs=epocas, eta=eta, base_treino=base_treino)
+    ppn = PerceptronSIG(epochs=epocas, eta=eta, base_treino=base_treino, type_y=type_y)
     util = Utilidade(verb=verb, log=log)
 
     url = 'https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data'
@@ -30,7 +31,10 @@ def main():
     df = pd.read_csv(url, header=None)
     y = df.iloc[:, 4].values
 
-    y = np.where(y == iris_classe, 0, 1)
+    if ppn.type_y == type_y:
+        y = np.where(y == iris_classe, -1, 1)
+    else:
+        y = np.where(y == iris_classe, 0, 1)
 
     # atributos de treinamento
     X = df.iloc[:, atributos].values
@@ -39,7 +43,6 @@ def main():
     ppn.shuffle_(X, y)
 
     X_new, y_new, accuracy, weights, dmm, erros, imax_, imin_ = util.execution(X, y, clf=ppn, num=realizacoes)
-
     if curva == 's':
         util.plot_learning_bend(erros[imin_],
                                 title="Curva de aprendizado no pior caso [%d] %s" % (imin_ + 1, iris_classe),
@@ -51,27 +54,25 @@ def main():
                                 ylabel="Erros")
 
     try:
-        print(X_new[imin_][1].shape)
-        print(y_new[imin_][1].shape)
         ppn.w_ = weights[imin_]
-        print(ppn.w_.shape)
         util.plot_decision(X=X_new[imin_][1], y=y_new[imin_][1], clf=ppn, title="Superficie de decisao [%d] %s" % (imin_ + 1, iris_classe.upper()),
                       xlabel="Comprimento Sépala", ylabel="Largura Sépala")
 
-        # ppn.w_ = weights[imax_]
-        # util.plot_decision(X=X_new[imax_][1], y=y_new[imax_][1], clf=ppn,
-        #               title="Superficie de decisao [%d] %s " % (imax_ + 1, iris_classe),
-        #               xlabel="Comprimento Sépala", ylabel="Largura Sépala")
-        #
-        #
-        # X = np.concatenate((X_new[imax_][0], X_new[imax_][1]))
-        # y = np.concatenate((y_new[imax_][0], y_new[imax_][1]))
-        #
-        # util.plot_decision(X=X, y=y, clf=ppn,
-        #                    title="Superficie de decisao [%d] - Base completa %s" % (imax_ + 1, iris_classe.upper()),
-        #                    xlabel="Entrada 1", ylabel="Entrada 2", X_highlight=X_new[imax_][1])
+        ppn.w_ = weights[imax_]
+
+        util.plot_decision(X=X_new[imax_][1], y=y_new[imax_][1], clf=ppn,
+                      title="Superficie de decisao [%d] %s " % (imax_ + 1, iris_classe),
+                      xlabel="Comprimento Sépala", ylabel="Largura Sépala")
+
+        X = np.concatenate((X_new[imax_][0], X_new[imax_][1]))
+        y = np.concatenate((y_new[imax_][0], y_new[imax_][1]))
+
+        util.plot_decision(X=X, y=y, clf=ppn,
+                           title="Superficie de decisao [%d] - Base completa %s" % (imax_ + 1, iris_classe.upper()),
+                           xlabel="Entrada 1", ylabel="Entrada 2", X_highlight=X_new[imax_][1])
 
     except Exception as e:
+        print(e)
         print('\n\n################################################################################')
         print('# Para que o gráfico seja plotado, é necessário que hajam apenas 2 atributos.  #')
         print('################################################################################')

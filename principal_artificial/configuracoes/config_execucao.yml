@@ -14,13 +14,17 @@
 # log: Registra todas as ações em um arquivo, incluindo imagens dos plots em arquivos separados.
 #            As opções disponíveis sao: 's': Armazena as informações
 #                                        'n': Não armazena as informações
-
+# Tipo de função Perceptron Sigmoide
+#                                         'none' : y' = 1
+#                                         'logistic'
+#                                         'tanh'
 classe: 'and'
-realizacoes: 10
+realizacoes: 1
 epocas: 100
-eta: 0.05
+eta: 0.1
 base_treino: 0.8
-num_por_classe: 10
-ruido: 0.3
+num_por_classe: 50
+ruido: 0.25
 verb: 's'
 log: 'n'
+type_y: 'logistic'

@@ -60,9 +60,10 @@ class Artificial(object):
 
         return X, y, N
 
-    def artificial_sigmoide(self, npc, ruido):
+    def artificial_sigmoide(self, npc, ruido, type_d):
         X = []
         y = []
+        aux = 0 if type_d != 'tanh' else -1
         c = 0
         for i, j in zip([0, 1, 2], [2, 1, 2]):
             for _ in range(npc):
@@ -70,11 +71,11 @@ class Artificial(object):
                           random.uniform(j + ((-1) ** (_ + 1)) * ruido, j + ((-1) ** _) * ruido)])
 
                 if c == 0:
-                    y.append(np.array([1, 0, 0]))
+                    y.append(np.array([1, aux, aux]))
                 elif c == 1:
-                    y.append(np.array([0, 1, 0]))
+                    y.append(np.array([aux, 1, aux]))
                 elif c == 2:
-                    y.append(np.array([0, 0, 1]))
+                    y.append(np.array([aux, aux, 1]))
             c += 1
 
         X = np.array(X)

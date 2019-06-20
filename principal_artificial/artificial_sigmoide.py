@@ -5,9 +5,9 @@ import copy
 import matplotlib.pyplot as plt
 import yaml
 
-from perceptron_sigmoide.perceptron_sigmoide import PerceptronSG
+from perceptron_nneuronios.perceptron_nneuronios import PerceptronNN
 from util.artificial_dataset import Artificial
-from util.utilidade import Utilidade
+from util.utilidadeSG import UtilidadeSG
 
 
 def main():
@@ -24,23 +24,32 @@ def main():
     log = config_exec['log']
     npc = config_exec['num_por_classe']
     ruido = config_exec['ruido']
+    type_d = config_exec['type_y']
 
-    ppn = PerceptronSG(epocas=epocas, eta=eta, base_treino=base_treino, neuronios=3)
-    util = Utilidade(verb=verb, log=log)
+    ppn = PerceptronNN(epocas=epocas, eta=eta, base_treino=base_treino, n=3, type_y=type_d)
+    util = UtilidadeSG()
     artificial = Artificial()
-    X, y = artificial.artificial_sigmoide(npc=npc, ruido=ruido)
+    X, y = artificial.artificial_sigmoide(npc=npc, ruido=ruido, type_d=type_d)
 
-    Utilidade().normalize_(X)
+    UtilidadeSG().normalize_(X)
     xx = copy.deepcopy(X)
     yy = copy.deepcopy(y)
 
     ppn.shuffle_(X, y)
-    X_test, X_train = ppn.get_test_sample(X), ppn.get_train_sample(X)
-    y_test, y_train = ppn.get_test_sample(y), ppn.get_train_sample(y)
 
-    ppn = ppn.fit(X_train, y_train)
+    #Plot
+    plt.plot(xx[:npc, 0], xx[:npc, 1], 'bo', mec='k')
+    plt.plot(xx[npc:2*npc, 0], xx[npc:2*npc, 1], 'r*', mec='k')
+    plt.plot(xx[2*npc:, 0], xx[2*npc:, 1], 'g^', mec='k')
+    # plt.show()
 
-    ppn.teste(X_test, y_test)
+    UtilidadeSG().execution(X, y, clf=ppn, num=realizacoes)
+    # X_test, X_train = ppn.get_test_sample(X), ppn.get_train_sample(X)
+    # y_test, y_train = ppn.get_test_sample(y), ppn.get_train_sample(y)
+    #
+    # ppn = ppn.fit(X_train, y_train)
+    #
+    # ppn.test(X_test, y_test)
 
     # print(ppn.w_)
     # y = np.reshape(y, (3 * npc, 3))
@@ -61,13 +70,12 @@ def main():
     # ppn.plotData2d()
 
 
-    #Plot
-    plt.plot(xx[:npc, 0], xx[:npc, 1], 'go')
-    plt.plot(xx[npc:2*npc, 0], xx[npc:2*npc, 1], 'b*')
-    plt.plot(xx[2*npc:, 0], xx[2*npc:, 1], 'r^')
+    # plt.axis([0, 1, 0, 1])
 
     # plt.plot(xx, zz1, ls='-')
-    plt.show()
+    # plt.show()
+
+    # UtilidadeSG().plot_decision(xx, ppn)
     # print(xx.shape)
     # print(y.shape)
     # plot_decision_regions(X=X, y=y, clf=ppn)

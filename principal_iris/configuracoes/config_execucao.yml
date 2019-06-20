@@ -17,17 +17,21 @@
 # log: Registra todas as ações em um arquivo, incluindo imagens dos plots em arquivos separados.
 #            As opções disponíveis sao: 's': Armazena as informações
 #                                        'n': Não armazena as informações
-
+# Tipo de função Perceptron Sigmoide
+#                                         'none' : y' = 1
+#                                         'logistic'
+#                                         'tanh'
 iris_classe: 'Iris-setosa'
 realizacoes: 1
-epocas: 10
+epocas: 200
 eta: 0.1
-base_treino: 0.7
+base_treino: 0.8
 atributos:
-  - 0
-  - 1
-#  - 2
-#  - 3
+#  - 0
+#  - 1
+  - 2
+  - 3
 verb: 's'
 log: 'n'
 curva_aprendizado: 's'
+type_y: 'logistic'
