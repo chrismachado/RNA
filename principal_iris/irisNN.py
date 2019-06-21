@@ -14,14 +14,11 @@ def main():
 
     config_exec = yaml.load(stream=stream)
 
-    iris_classe = config_exec['iris_classe']
     realizacoes = config_exec['realizacoes']
     eta = config_exec['eta']
     epocas = config_exec['epocas']
     base_treino = config_exec['base_treino']
     atributos = config_exec['atributos']
-    verb = config_exec['verb']
-    log = config_exec['log']
     curva = config_exec['curva_aprendizado']
     type_y = config_exec['type_y']
 
@@ -33,8 +30,6 @@ def main():
     y = df.iloc[:, 4].values
 
     y_ = np.zeros((y.shape[0], 3))
-    # print(y_.shape)
-    # print(y_)
 
     if type_y == 'tanh':
         k = -1
@@ -46,12 +41,8 @@ def main():
             y_[i] = [1, k, k]
         elif y[i] == 'Iris-versicolor':
             y_[i] = [k, 1, k]
-            # y[i] = [0, 1, 0]
         elif y[i] == 'Iris-virginica':
             y_[i] = [k, k, 1]
-            # y[i] = [0, 0, 1]
-    # print(y_)
-    # y = np.reshape(y, (150, 1))
 
     # atributos de treinamento
     X = df.iloc[:, atributos].values
@@ -70,9 +61,8 @@ def main():
     ppn.shuffle_(X, y_)
     #
     # ppn = ppn.fit(X, y_)
-    UtilidadeSG().execution(X=X, y=y_, clf=ppn, num=realizacoes)
+    UtilidadeSG(ptype='Iris').execution(X=X, y=y_, clf=ppn, num=realizacoes)
 
-    # print(ppn.w_)
 
 
 if __name__ == '__main__':

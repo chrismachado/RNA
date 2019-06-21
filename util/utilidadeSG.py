@@ -5,9 +5,10 @@ import numpy as np
 
 
 class UtilidadeSG(object):
-    def __init__(self, verb='n', log='n'):
+    def __init__(self, verb='n', log='n', ptype='unknwon-base'):
         self.verb = verb
         self.log = log
+        self.ptype = ptype
 
     def execution(self, X, y, clf, num=20):
         X_new = []
@@ -54,7 +55,7 @@ class UtilidadeSG(object):
         else:
             warnings.warn("X possui mais de 2 dimensões => %s" % X.shape)
 
-        with open("../log/SLP", 'w') as f:
+        with open("../log/slp-%s" % self.ptype, 'w') as f:
             f.write("+=================================================+\n")
             f.write("+========       RESULTADO GERAL      =============+\n")
             f.write("+==  Acurácia : %s\n" % np.mean(accuracy))
@@ -111,7 +112,8 @@ class UtilidadeSG(object):
         for xx1, xx2 in X_highlights:
             plt.plot(xx1, xx2, 'ko', fillstyle='none', markersize=8)
 
-        plt.savefig("../figuras/%s-%s.png" % ('colormapPerceptron', clf.type_y), format='png')
+        #ColorMap Perceptron
+        plt.savefig("../figuras/%s-%s.png" % ('cmp', self.ptype), format='png')
         plt.show()
 
 
