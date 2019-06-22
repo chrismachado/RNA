@@ -33,33 +33,37 @@ class UtilidadeSG(object):
             y_new.append([y_train, y_test])
 
             clf = clf.fit(X_train, y_train)
-            erros.append(clf.errors)
+            erros.append(clf.errors[:])
             weights.append(clf.w_)
 
             # print("\n", clf.w_)
             hit = clf.test(X_test, y_test)
 
-            print("\tTaxa de acerto: ", hit)
+            print("\tTaxa de acerto: %.2f" % (hit * 100))
 
             accuracy.append(hit)
 
         print("+=================================================+")
         print("+========       RESULTADO GERAL      =============+")
-        print("+==  Acurácia : ", np.mean(accuracy))
-        print("+==  Desvio Padrão : %s" % np.std(accuracy))
+        print("+==  Acurácia : %.2f" % (np.mean(accuracy) * 100))
+        print("+==  Desvio Padrão : %.6f" % np.std(accuracy))
 
         imin, imax = self.evaluate_exec(accuracy=accuracy)
-        # print(X.shape)
+
         if X.shape[1] == 2:
             self.plot_decision(X=X, clf=clf, X_highlights=X_new[imax][1])
         else:
-            warnings.warn("X possui mais de 2 dimensões => %s" % X.shape)
+            warnings.warn("X possui mais de 2 dimensões")
 
-        with open("../log/slp-%s" % self.ptype, 'w') as f:
+        with open("../log/slp-%s-%s" % (self.ptype, X.shape[1]), 'w') as f:
+            for i in range(len(accuracy)):
+                f.write("Realização %d : Taxa de acerto %.2f%%\n" % ((i + 1), (accuracy[i]) * 100))
             f.write("+=================================================+\n")
             f.write("+========       RESULTADO GERAL      =============+\n")
-            f.write("+==  Acurácia : %s\n" % np.mean(accuracy))
-            f.write("+==  Desvio Padrão : %s\n" % np.std(accuracy))
+            f.write("+==  Acurácia : %.2f\n" % (np.mean(accuracy) * 100))
+            f.write("+==  Desvio Padrão : %.6f\n" % np.std(accuracy))
+
+        self.plot_curve(errors=erros[imax])
 
         return
 
@@ -94,10 +98,9 @@ class UtilidadeSG(object):
 
         aux = 0 if clf.type_y != 'tanh' else -1
         s = 25
-
         marker = 's'
 
-        print("\nCreating colormap...")
+        print("\nCreating colormap...", end=' ')
         for x1, x2 in Z:
             predict = clf.around(clf.predict([-1, x1, x2]))
             if np.array_equal(predict, np.array([1, aux, aux])):
@@ -107,7 +110,7 @@ class UtilidadeSG(object):
             elif np.array_equal(predict, np.array([aux, aux, 1])):
                 plt.scatter(x1, x2, c='#AFE31A', s=s, marker=marker)
 
-        print()
+        print("Done.")
 
         for xx1, xx2 in X_highlights:
             plt.plot(xx1, xx2, 'ko', fillstyle='none', markersize=8)
@@ -116,4 +119,16 @@ class UtilidadeSG(object):
         plt.savefig("../figuras/%s-%s.png" % ('cmp', self.ptype), format='png')
         plt.show()
 
+    #Plota a curva de aprendizado da rede
+    def plot_curve(self, errors):
+        errors = np.array(errors)
+        fig, ax = plt.subplots()
+        for i in range(errors.shape[1]):
+            ax.plot(range(errors.shape[0]), errors[:, i], ls='-', label='Perceptron %d' % (i + 1))
 
+        ax.title.set_text('Curva de aprendizado da rede')
+        ax.set_xlabel('x0')
+        ax.set_ylabel('x1')
+        ax.legend()
+        fig.savefig("../figuras/%s-%s.png" % ('lcp', self.ptype), format='png')
+        plt.show()
