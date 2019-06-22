@@ -40,7 +40,7 @@ class PerceptronNN(object):
         XX = np.c_[-np.ones(shape=(X.shape[0], 1)), X]
         yy = cp.deepcopy(y)
         for _ in range(self.epochs):
-            erros = 0
+            erros = np.zeros(shape=(yy.shape[1]))
             self.etadecay(_)
             self.shuffle_(XX, yy) #Embaralha os dois vetores na mesma proporcao
             for xi, target in zip(XX, yy):
@@ -51,14 +51,14 @@ class PerceptronNN(object):
                 for i in range(len(self.w_)):
                     self.w_[i] += att[i] * xi
 
-                for e_ in att:
-                    if e_ != 0.0:
-
-                        erros += 1
+                for i in range(len(e)):
+                    if e[i] != 0.0:
+                        erros[i] += 1
 
             self.errors.append(erros)
+            # print(erros)
 
-            if erros == 0:
+            if np.array_equal(erros, [0, 0, 0]):
                 break
 
         return self
