@@ -19,12 +19,12 @@
 #                                         'logistic'
 #                                         'tanh'
 classe: 'and'
-realizacoes: 1
-epocas: 100
+realizacoes: 20
+epocas: 200
 eta: 0.1
 base_treino: 0.8
 num_por_classe: 50
 ruido: 0.25
 verb: 's'
 log: 'n'
-type_y: 'logistic'
+type_y: 'none'

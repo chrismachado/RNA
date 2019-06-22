@@ -35,9 +35,10 @@ def main():
     ppn.shuffle_(X, y)
 
     #Plot
-    plt.plot(xx[:npc, 0], xx[:npc, 1], 'bo', mec='k')
-    plt.plot(xx[npc:2*npc, 0], xx[npc:2*npc, 1], 'r*', mec='k')
-    plt.plot(xx[2*npc:, 0], xx[2*npc:, 1], 'g^', mec='k')
+    plt.plot(xx[:npc, 0], xx[:npc, 1], 'bo', mec='k', markersize=5, label='Padrão 1')
+    plt.plot(xx[npc:2*npc, 0], xx[npc:2*npc, 1], 'r*', mec='k', label='Padrão 2')
+    plt.plot(xx[2*npc:, 0], xx[2*npc:, 1], 'g^', mec='k', label='Padrão 3')
+    plt.legend()
 
     util.execution(X, y, clf=ppn, num=realizacoes)
 

@@ -51,16 +51,16 @@ def main():
     UtilidadeSG().normalize_(xx)
 
     if xx.shape[1] == 2:
-        plt.plot(xx[:50, 0], xx[:50, 1], 'bo', mec='k', markersize=5)
-        plt.plot(xx[50:100, 0], xx[50:100, 1], 'r*', mec='k')
-        plt.plot(xx[100:, 0], xx[100:, 1], 'g^', mec='k')
+        plt.plot(xx[:50, 0], xx[:50, 1], 'bo', mec='k', markersize=5, label='Setosa')
+        plt.plot(xx[50:100, 0], xx[50:100, 1], 'r*', mec='k', label='Versicolor')
+        plt.plot(xx[100:, 0], xx[100:, 1], 'g^', mec='k', label='Virginica')
+        plt.legend()
 
     UtilidadeSG().normalize_(X)
 
     # # shuffle_
     ppn.shuffle_(X, y_)
-    #
-    # ppn = ppn.fit(X, y_)
+
     UtilidadeSG(ptype='Iris').execution(X=X, y=y_, clf=ppn, num=realizacoes)
 
 

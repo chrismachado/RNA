@@ -22,16 +22,16 @@
 #                                         'logistic'
 #                                         'tanh'
 iris_classe: 'Iris-setosa'
-realizacoes: 1
-epocas: 100
+realizacoes: 20
+epocas: 200
 eta: 0.1
 base_treino: 0.8
 atributos:
-#  - 0
-#  - 1
+  - 0
+  - 1
   - 2
   - 3
 verb: 's'
 log: 'n'
 curva_aprendizado: 's'
-type_y: 'logistic'
+type_y: 'none'
