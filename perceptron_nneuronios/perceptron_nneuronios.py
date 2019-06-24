@@ -5,10 +5,16 @@ import numpy as np
 
 class PerceptronNN(object):
 
-    def __init__(self, eta=0.1, epocas=50, base_treino=0.8, type_y='none', n=1):
+    def __init__(self, eta=0.1,
+                 etaMax=0.5,
+                 etaMin=0.01,
+                 epocas=50,
+                 base_treino=0.8,
+                 type_y='default',
+                 n=1):
         self.eta = eta
-        self.etaMax = 0.5
-        self.etaMin = 0.01
+        self.etaMax = etaMax
+        self.etaMin = etaMin
         self.epochs = epocas
         self.base_treino = base_treino
         self.type_y = type_y
@@ -16,7 +22,7 @@ class PerceptronNN(object):
         self.fE = epocas * 0.8
 
     def functionY(self, u):
-        if self.type_y == 'none':
+        if self.type_y == 'default':
             return u
         elif self.type_y == 'logistic':
             return 1.0 / (1.0 + np.exp(-u))
@@ -24,7 +30,7 @@ class PerceptronNN(object):
             return (1.0 - np.exp(-u))/(1.0 + np.exp(-u))
 
     def functionYD(self, u):
-        if self.type_y == 'none':
+        if self.type_y == 'default':
             return 1
         elif self.type_y == 'logistic':
             y = 1.0 / (1.0 + np.exp(-u))
@@ -56,7 +62,6 @@ class PerceptronNN(object):
                         erros[i] += 1
 
             self.errors.append(erros)
-            # print(erros)
 
             if np.array_equal(erros, [0, 0, 0]):
                 break

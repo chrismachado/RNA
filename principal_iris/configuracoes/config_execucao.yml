@@ -18,7 +18,7 @@
 #            As opções disponíveis sao: 's': Armazena as informações
 #                                        'n': Não armazena as informações
 # Tipo de função Perceptron Sigmoide
-#                                         'none' : y' = 1
+#                                         'default' : y' = 1
 #                                         'logistic'
 #                                         'tanh'
 iris_classe: 'Iris-setosa'
@@ -27,11 +27,11 @@ epocas: 200
 eta: 0.1
 base_treino: 0.8
 atributos:
-  - 0
-  - 1
+#  - 0
+#  - 1
   - 2
   - 3
 verb: 's'
 log: 'n'
 curva_aprendizado: 's'
-type_y: 'none'
+type_y: 'logistic'

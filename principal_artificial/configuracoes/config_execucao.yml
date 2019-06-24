@@ -15,7 +15,7 @@
 #            As opções disponíveis sao: 's': Armazena as informações
 #                                        'n': Não armazena as informações
 # Tipo de função Perceptron Sigmoide
-#                                         'none' : y' = 1
+#                                         'default' : y' = 1
 #                                         'logistic'
 #                                         'tanh'
 classe: 'and'
@@ -24,7 +24,7 @@ epocas: 200
 eta: 0.1
 base_treino: 0.8
 num_por_classe: 50
-ruido: 0.25
+ruido: 0.15
 verb: 's'
 log: 'n'
-type_y: 'none'
+type_y: 'default'

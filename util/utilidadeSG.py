@@ -55,7 +55,7 @@ class UtilidadeSG(object):
         else:
             warnings.warn("X possui mais de 2 dimensões")
 
-        with open("../log/slp-%s-%s" % (self.ptype, X.shape[1]), 'w') as f:
+        with open("../log/slp-%s-%s-%s" % (self.ptype, X.shape[1], clf.type_y), 'w') as f:
             for i in range(len(accuracy)):
                 f.write("Realização %d : Taxa de acerto %.2f%%\n" % ((i + 1), (accuracy[i]) * 100))
             f.write("+=================================================+\n")
@@ -63,7 +63,7 @@ class UtilidadeSG(object):
             f.write("+==  Acurácia : %.2f\n" % (np.mean(accuracy) * 100))
             f.write("+==  Desvio Padrão : %.6f\n" % np.std(accuracy))
 
-        self.plot_curve(errors=erros[imax])
+        self.plot_curve(errors=erros[imax], type_f=clf.type_y)
 
         return
 
@@ -116,19 +116,23 @@ class UtilidadeSG(object):
             plt.plot(xx1, xx2, 'ko', fillstyle='none', markersize=8)
 
         #ColorMap Perceptron
-        plt.savefig("../figuras/%s-%s.png" % ('cmp', self.ptype), format='png')
+        plt.xlabel('x0')
+        plt.ylabel('x1')
+        plt.title('Rede Perceptron Mapa de Cores')
+
+        plt.savefig("../figuras/%s-%s-%s.png" % ('cmp', self.ptype, clf.type_y), format='png')
         plt.show()
 
     #Plota a curva de aprendizado da rede
-    def plot_curve(self, errors):
+    def plot_curve(self, errors, type_f):
         errors = np.array(errors)
         fig, ax = plt.subplots()
         for i in range(errors.shape[1]):
             ax.plot(range(errors.shape[0]), errors[:, i], ls='-', label='Perceptron %d' % (i + 1))
 
         ax.title.set_text('Curva de aprendizado da rede')
-        ax.set_xlabel('x0')
-        ax.set_ylabel('x1')
+        ax.set_xlabel('Época')
+        ax.set_ylabel('Erro')
         ax.legend()
-        fig.savefig("../figuras/%s-%s.png" % ('lcp', self.ptype), format='png')
+        fig.savefig("../figuras/%s-%s-%s.png" % ('lcp', self.ptype, type_f), format='png')
         plt.show()
